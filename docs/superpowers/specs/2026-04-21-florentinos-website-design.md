@@ -23,9 +23,9 @@ Replace the existing florentinosseattle.com with a modern, dark/dramatic site th
 |---|---|---|
 | Framework | Astro (static output) | Purpose-built for content sites, fast, supports React islands for interactive pieces |
 | Hosting | Netlify (free tier) | Auto-deploys from git, built-in form handling, no server to maintain |
-| CMS | Sanity (free tier) | Visual Studio editor — Florentino updates photos/text via browser dashboard; Netlify webhook triggers rebuild on save |
+| CMS | Sanity (free tier, up to 3 users / 10GB) | Visual Studio editor — Florentino updates photos/text via browser dashboard; Netlify webhook triggers rebuild on save |
 | Scroll/Animation | Lenis + GSAP ScrollTrigger | Smooth continuous scroll, section entrance animations |
-| Forms | Netlify Forms (free, up to 100/mo) | Inquiry submissions email directly to Florentino; no backend needed |
+| Forms | Netlify Forms (free, up to 100 submissions/mo total) | Inquiry submissions email directly to Florentino; no backend needed |
 | Email Aliases | Cloudflare Email Routing (free) | Forwards ciao@florentinosseattle.com → Gmail/ProtonMail; replaces Dreamhost email |
 | DNS | Cloudflare (free) | Sits in front of Netlify, handles email routing |
 | Domain | Stay at Dreamhost or transfer to Namecheap (~$10–15/yr) | Keep registration separate from hosting |
