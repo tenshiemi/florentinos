@@ -52,6 +52,7 @@ img { max-width: 100%; height: auto; display: block; }
   transition: opacity var(--transition-base);
 }
 .btn-primary:hover { opacity: 0.9; }
+.btn-primary:focus-visible { outline: 2px solid var(--color-navy); outline-offset: 2px; opacity: 0.9; }
 
 .btn-outline {
   background: transparent;
@@ -68,6 +69,7 @@ img { max-width: 100%; height: auto; display: block; }
   transition: all var(--transition-base);
 }
 .btn-outline:hover { background: var(--color-gold); color: var(--color-navy); }
+.btn-outline:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 2px; }
 
 /* Forms */
 .form-field { display: flex; flex-direction: column; gap: 6px; }
