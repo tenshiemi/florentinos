@@ -1,0 +1,38 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="footer-brand">Florentino's Fine Flowers</p>
+    <p class="footer-sub">Madison Valley · Seattle</p>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="/gallery">Gallery</a>
+      <a href="/order">Order</a>
+      <a href="/subscribe">Subscribe</a>
+      <a href="/about">About</a>
+      <a href="/visit">Visit</a>
+    </nav>
+    <p class="footer-copy">&copy; {year} Florentino's Fine Flowers. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-navy);
+    border-top: 1px solid rgba(255,225,132,0.15);
+    padding: 3rem var(--space-content);
+    text-align: center;
+  }
+  .footer-inner { max-width: var(--max-width); margin: 0 auto; }
+  .footer-brand {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--color-gold);
+    margin-bottom: 0.25rem;
+  }
+  .footer-sub { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #888; margin-bottom: 1.5rem; }
+  .footer-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .footer-links a { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #aaa; }
+  .footer-links a:hover { color: var(--color-gold); }
+  .footer-copy { font-size: 11px; color: #555; }
+</style>

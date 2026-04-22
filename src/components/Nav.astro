@@ -1,0 +1,117 @@
+---
+const links = [
+  { href: '/gallery', label: 'Gallery' },
+  { href: '/order', label: 'Order' },
+  { href: '/subscribe', label: 'Subscribe' },
+  { href: '/about', label: 'About' },
+  { href: '/visit', label: 'Visit' },
+];
+---
+<nav id="main-nav" class="nav">
+  <a href="/" class="nav-logo" aria-label="Florentino's Fine Flowers — Home">
+    Florentino's
+  </a>
+  <button
+    class="nav-toggle"
+    aria-label="Toggle navigation menu"
+    aria-expanded="false"
+    aria-controls="nav-links"
+  >
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="nav-links" class="nav-links" role="list">
+    {links.map(({ href, label }) => (
+      <li><a href={href}>{label}</a></li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem var(--space-content);
+    transition: background var(--transition-slow), padding var(--transition-slow);
+  }
+  .nav--scrolled {
+    background: var(--color-navy);
+    padding-top: 0.875rem;
+    padding-bottom: 0.875rem;
+    box-shadow: 0 1px 0 rgba(255,225,132,0.1);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-gold);
+    letter-spacing: 1px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #e8e8f0;
+    transition: color var(--transition-base);
+  }
+  .nav-links a:hover { color: var(--color-gold); }
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--color-gold);
+    transition: transform var(--transition-base), opacity var(--transition-base);
+  }
+  @media (max-width: 768px) {
+    .nav-toggle { display: flex; }
+    .nav-links {
+      position: fixed;
+      top: 0; right: 0;
+      height: 100vh;
+      width: min(280px, 80vw);
+      background: var(--color-navy);
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem;
+      gap: 2rem;
+      transform: translateX(100%);
+      transition: transform var(--transition-slow);
+    }
+    .nav-links--open { transform: translateX(0); }
+    .nav-links a { font-size: 14px; }
+  }
+</style>
+
+<script>
+  const nav = document.getElementById('main-nav')!;
+  const toggle = document.querySelector('.nav-toggle') as HTMLButtonElement;
+  const links = document.getElementById('nav-links')!;
+
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('nav--scrolled', window.scrollY > 80);
+  }, { passive: true });
+
+  toggle.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    links.classList.toggle('nav-links--open');
+  });
+</script>
