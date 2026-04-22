@@ -1,0 +1,182 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const budgetOptions = [
+  '$75','$100','$125','$150','$175','$200',
+  '$225','$250','$275','$300','$325','$350','$375','$400','$400+',
+];
+---
+<Layout
+  title="Order — Florentino's Fine Flowers"
+  description="Request a custom floral arrangement. Tell us the feeling — we'll handle the rest."
+>
+  <div class="page-hero" data-animate="fade-up">
+    <p class="page-eyebrow">Custom Arrangements</p>
+    <h1>Order Flowers</h1>
+    <p class="page-intro">
+      Tell us a little about what you're looking for.
+      We'll reach out with ideas and a quote.
+    </p>
+  </div>
+
+  <section class="form-page">
+    <div class="form-wrap">
+      <form
+        name="order-inquiry"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="inquiry-form"
+        id="order-form"
+      >
+        <input type="hidden" name="form-name" value="order-inquiry" />
+        <p class="visually-hidden">
+          <label>Don't fill this out: <input name="bot-field" /></label>
+        </p>
+
+        <!-- Date Needed -->
+        <div class="form-field">
+          <label class="form-label" for="date-needed">Date Needed</label>
+          <input class="form-input" type="date" id="date-needed" name="date-needed" required />
+        </div>
+
+        <!-- Delivery or Pickup -->
+        <fieldset class="form-field form-fieldset">
+          <legend class="form-label">Delivery or Pickup?</legend>
+          <div class="pill-group">
+            <input type="radio" name="fulfillment" id="pickup" value="pickup" required />
+            <label for="pickup">Pickup</label>
+            <input type="radio" name="fulfillment" id="delivery" value="delivery" />
+            <label for="delivery">Delivery</label>
+          </div>
+        </fieldset>
+
+        <!-- Recipient -->
+        <div class="form-field">
+          <label class="form-label" for="recipient-name">Recipient Name</label>
+          <input class="form-input" type="text" id="recipient-name" name="recipient-name" placeholder="Who is this for?" required />
+        </div>
+
+        <!-- Delivery address (conditional) -->
+        <div class="form-field" id="delivery-address-field" hidden>
+          <label class="form-label" for="delivery-address">Delivery Address</label>
+          <input class="form-input" type="text" id="delivery-address" name="delivery-address" placeholder="Street address, Seattle" />
+        </div>
+
+        <!-- Card Message -->
+        <div class="form-field">
+          <label class="form-label" for="card-message">Card Message</label>
+          <textarea class="form-textarea" id="card-message" name="card-message" rows="3" placeholder="What would you like the card to say? (optional)"></textarea>
+        </div>
+
+        <!-- Order Request -->
+        <div class="form-field">
+          <label class="form-label" for="order-request">Order Request</label>
+          <p class="form-hint">Describe the vibe, colors, or feeling — we'll handle the rest.</p>
+          <textarea class="form-textarea" id="order-request" name="order-request" rows="4" placeholder="e.g. warm and autumnal, mostly roses, for a dining table..." required></textarea>
+        </div>
+
+        <!-- Budget -->
+        <div class="form-field">
+          <label class="form-label" for="budget">Budget</label>
+          <select class="form-select" id="budget" name="budget" required>
+            <option value="" disabled selected>Select a budget</option>
+            {budgetOptions.map((opt) => <option value={opt}>{opt}</option>)}
+          </select>
+        </div>
+
+        <hr class="form-divider" />
+
+        <!-- Purchaser info -->
+        <div class="form-field">
+          <label class="form-label" for="purchaser-name">Your Name</label>
+          <input class="form-input" type="text" id="purchaser-name" name="purchaser-name" placeholder="Your full name" required />
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" for="purchaser-email">Email</label>
+            <input class="form-input" type="email" id="purchaser-email" name="purchaser-email" placeholder="you@example.com" required />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="purchaser-phone">Phone</label>
+            <input class="form-input" type="tel" id="purchaser-phone" name="purchaser-phone" placeholder="(206) 555-0100" required />
+          </div>
+        </div>
+
+        <!-- Today's date -->
+        <div class="form-field">
+          <label class="form-label" for="today-date">Today's Date</label>
+          <input class="form-input" type="date" id="today-date" name="today-date" required />
+        </div>
+
+        <!-- Disclaimer -->
+        <p class="form-disclaimer">
+          By submitting this form you understand that this is an inquiry, not a confirmed order.
+          Florentino's will follow up with a custom quote and invoice for your approval.
+        </p>
+
+        <button type="submit" class="btn-primary form-submit">Send Inquiry</button>
+      </form>
+
+      <!-- Success message (shown after Netlify redirect) -->
+      <div id="form-success" class="form-success" hidden>
+        <h2>Thank you!</h2>
+        <p>We've received your inquiry and will be in touch within 24 hours.</p>
+        <a href="/" class="btn-outline">Back to Home</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-hero {
+    padding: calc(var(--space-section) + 80px) var(--space-content) 3rem;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .page-eyebrow {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--color-gold); opacity: 0.7; margin-bottom: 0.75rem;
+  }
+  .page-intro {
+    color: #b0b0c8; font-style: italic; margin-top: 1rem;
+    font-family: var(--font-display); font-size: 1.1rem;
+  }
+  .form-page { padding: 0 var(--space-content) var(--space-section); }
+  .form-wrap { max-width: 640px; margin: 0 auto; }
+  .inquiry-form { display: flex; flex-direction: column; gap: 20px; }
+  .form-fieldset { border: none; padding: 0; }
+  .form-divider { border: none; border-top: 1px solid rgba(255,225,132,0.1); margin: 0.5rem 0; }
+  .form-submit { align-self: flex-start; margin-top: 0.5rem; }
+  /* Override global pill-group radio hiding so Playwright (and assistive tech) can interact */
+  .pill-group input[type="radio"] {
+    position: static;
+    opacity: 0.01;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+  }
+  .form-success { text-align: center; padding: 4rem 0; }
+  .form-success h2 { margin-bottom: 1rem; }
+  .form-success p { color: #b0b0c8; margin-bottom: 2rem; }
+</style>
+
+<script>
+  const deliveryRadio = document.getElementById('delivery') as HTMLInputElement;
+  const pickupRadio = document.getElementById('pickup') as HTMLInputElement;
+  const addressField = document.getElementById('delivery-address-field') as HTMLDivElement;
+  const addressInput = document.getElementById('delivery-address') as HTMLInputElement;
+
+  function toggleAddress(show: boolean) {
+    addressField.hidden = !show;
+    addressInput.required = show;
+  }
+
+  deliveryRadio.addEventListener('change', () => toggleAddress(true));
+  pickupRadio.addEventListener('change', () => toggleAddress(false));
+
+  // Pre-fill today's date
+  const todayInput = document.getElementById('today-date') as HTMLInputElement;
+  todayInput.value = new Date().toISOString().split('T')[0];
+</script>
