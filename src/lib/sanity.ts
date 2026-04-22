@@ -1,12 +1,14 @@
 import { createClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 import type { SanityImageSource } from '@sanity/image-url';
+import type { PortableTextBlock } from '@portabletext/types';
 
 export const sanityClient = createClient({
   projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID,
   dataset: import.meta.env.PUBLIC_SANITY_DATASET ?? 'production',
-  useCdn: true,
+  useCdn: false,
   apiVersion: '2026-04-21',
+  perspective: 'published',
 });
 
 const builder = imageUrlBuilder(sanityClient);
@@ -24,7 +26,7 @@ export interface GalleryImage {
 
 export interface AboutContent {
   photo: SanityImageSource;
-  bio: unknown[];
+  bio: PortableTextBlock[];
 }
 
 export interface VisitContent {
