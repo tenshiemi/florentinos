@@ -1,0 +1,171 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const budgetOptions = [
+  '$75','$100','$125','$150','$175','$200',
+  '$225','$250','$275','$300','$325','$350','$375','$400','$400+',
+];
+---
+<Layout
+  title="Subscribe — Florentino's Fine Flowers"
+  description="Sign up for regular flower deliveries or pickups, on your schedule."
+>
+  <div class="page-hero" data-animate="fade-up">
+    <p class="page-eyebrow">Flower Subscriptions</p>
+    <h1>Fresh Flowers,<br />On Your Schedule</h1>
+    <p class="page-intro">
+      Fresh arrangements delivered or ready for pickup — weekly, biweekly, or monthly.
+      We'll reach out to confirm the details.
+    </p>
+  </div>
+
+  <section class="form-page">
+    <div class="form-wrap">
+      <form
+        name="flower-subscription"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="inquiry-form"
+      >
+        <input type="hidden" name="form-name" value="flower-subscription" />
+        <p class="visually-hidden">
+          <label>Don't fill this out: <input name="bot-field" /></label>
+        </p>
+
+        <!-- Purchaser contact -->
+        <div class="form-field">
+          <label class="form-label" for="sub-purchaser-name">Your Name</label>
+          <input class="form-input" type="text" id="sub-purchaser-name" name="purchaser-name" placeholder="Your full name" required />
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" for="sub-purchaser-email">Email</label>
+            <input class="form-input" type="email" id="sub-purchaser-email" name="purchaser-email" placeholder="you@example.com" required />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="sub-purchaser-phone">Phone</label>
+            <input class="form-input" type="tel" id="sub-purchaser-phone" name="purchaser-phone" placeholder="(206) 555-0100" required />
+          </div>
+        </div>
+
+        <!-- Delivery or pickup -->
+        <fieldset class="form-field form-fieldset">
+          <legend class="form-label">Delivery or Pickup?</legend>
+          <div class="pill-group">
+            <input type="radio" name="sub-fulfillment" id="sub-pickup" value="pickup" required />
+            <label for="sub-pickup">Pickup</label>
+            <input type="radio" name="sub-fulfillment" id="sub-delivery" value="delivery" />
+            <label for="sub-delivery">Delivery</label>
+          </div>
+        </fieldset>
+
+        <!-- Frequency -->
+        <fieldset class="form-field form-fieldset">
+          <legend class="form-label">How Often?</legend>
+          <div class="pill-group">
+            <input type="radio" name="frequency" id="freq-weekly" value="weekly" required />
+            <label for="freq-weekly">Weekly</label>
+            <input type="radio" name="frequency" id="freq-biweekly" value="biweekly" />
+            <label for="freq-biweekly">Every 2 Weeks</label>
+            <input type="radio" name="frequency" id="freq-monthly" value="monthly" />
+            <label for="freq-monthly">Monthly</label>
+          </div>
+        </fieldset>
+
+        <!-- Recipient -->
+        <div class="form-field">
+          <label class="form-label" for="sub-recipient-name">Recipient Name</label>
+          <input class="form-input" type="text" id="sub-recipient-name" name="recipient-name" placeholder="If different from above" />
+        </div>
+
+        <!-- Conditional delivery address -->
+        <div class="form-field" id="sub-delivery-address-field" hidden>
+          <label class="form-label" for="sub-delivery-address">Delivery Address</label>
+          <input class="form-input" type="text" id="sub-delivery-address" name="delivery-address" placeholder="Street address, Seattle" />
+        </div>
+
+        <!-- Start date -->
+        <div class="form-field">
+          <label class="form-label" for="start-date">Preferred Start Date</label>
+          <input class="form-input" type="date" id="start-date" name="start-date" required />
+        </div>
+
+        <!-- Special requests -->
+        <div class="form-field">
+          <label class="form-label" for="special-requests">Special Requests</label>
+          <p class="form-hint">Colors, styles, anything to avoid — we'll take it from there.</p>
+          <textarea class="form-textarea" id="special-requests" name="special-requests" rows="3" placeholder="e.g. no lilies, prefer warm tones..."></textarea>
+        </div>
+
+        <!-- Budget -->
+        <div class="form-field">
+          <label class="form-label" for="sub-budget">Budget Per Arrangement</label>
+          <select class="form-select" id="sub-budget" name="budget" required>
+            <option value="" disabled selected>Select a budget</option>
+            {budgetOptions.map((opt) => <option value={opt}>{opt}</option>)}
+          </select>
+        </div>
+
+        <!-- Style preferences -->
+        <div class="form-field">
+          <label class="form-label" for="style-preferences">Style Preferences</label>
+          <p class="form-hint">Modern, lush, wild, minimal, seasonal — or let us surprise you.</p>
+          <textarea class="form-textarea" id="style-preferences" name="style-preferences" rows="3" placeholder="Describe the aesthetic you love..."></textarea>
+        </div>
+
+        <!-- Disclaimer -->
+        <p class="form-disclaimer">
+          By submitting you understand this is an inquiry. We'll follow up to confirm
+          your subscription details and first invoice.
+        </p>
+
+        <button type="submit" class="btn-primary form-submit">Start My Subscription</button>
+      </form>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-hero {
+    padding: calc(var(--space-section) + 80px) var(--space-content) 3rem;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .page-eyebrow {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--color-gold); opacity: 0.7; margin-bottom: 0.75rem;
+  }
+  .page-intro {
+    color: #b0b0c8; font-style: italic; margin-top: 1rem;
+    font-family: var(--font-display); font-size: 1.1rem;
+  }
+  .form-page { padding: 0 var(--space-content) var(--space-section); }
+  .form-wrap { max-width: 640px; margin: 0 auto; }
+  .inquiry-form { display: flex; flex-direction: column; gap: 20px; }
+  .form-fieldset { border: none; padding: 0; }
+  .form-submit { align-self: flex-start; margin-top: 0.5rem; }
+  /* Override global pill-group radio hiding so Playwright (and assistive tech) can interact */
+  .pill-group input[type="radio"] {
+    position: static;
+    opacity: 0.01;
+    width: 1px;
+    height: 1px;
+  }
+</style>
+
+<script>
+  const subDelivery = document.getElementById('sub-delivery') as HTMLInputElement;
+  const subPickup = document.getElementById('sub-pickup') as HTMLInputElement;
+  const subAddressField = document.getElementById('sub-delivery-address-field') as HTMLDivElement;
+  const subAddressInput = document.getElementById('sub-delivery-address') as HTMLInputElement;
+
+  function toggleSubAddress(show: boolean) {
+    subAddressField.hidden = !show;
+    subAddressInput.required = show;
+  }
+
+  subDelivery.addEventListener('change', () => toggleSubAddress(true));
+  subPickup.addEventListener('change', () => toggleSubAddress(false));
+</script>
