@@ -1,0 +1,32 @@
+:root {
+  /* Brand colors */
+  --color-gold: #FFE184;
+  --color-navy: #212745;
+  --color-blue: #113366;
+  --color-bg: #0a0a14;
+
+  /* Form accessibility (WCAG AA) */
+  --color-placeholder: #8888aa;
+  --color-hint: #9999bb;
+  --color-border: #4a4a6e;
+  --color-input-bg: #1e2240;
+  --color-disclaimer: #9999bb;
+
+  /* Typography */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Raleway', system-ui, sans-serif;
+
+  /* Form type sizes */
+  --text-label: 12px;
+  --text-input: 14px;
+  --text-disclaimer: 13px;
+
+  /* Layout */
+  --space-section: clamp(4rem, 10vw, 8rem);
+  --space-content: clamp(1.5rem, 5vw, 4rem);
+  --max-width: 1200px;
+
+  /* Transitions */
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.6s ease;
+}
