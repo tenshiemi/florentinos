@@ -161,11 +161,27 @@ All other content (page copy, form fields) is managed in code by Emily.
 
 ---
 
-## 10. Open Questions for Florentino
+## 10. Hours
 
-- [ ] Does he want the About page to include a photo of himself, the shop interior, or both?
+| Day | Hours |
+|---|---|
+| Monday | 10 AM – 3 PM |
+| Tuesday | 10 AM – 3 PM |
+| Wednesday | 10 AM – 3 PM |
+| Thursday | 10 AM – 4 PM |
+| Friday | 10 AM – 4 PM |
+| Saturday | 10 AM – 4 PM |
+| Sunday | Closed |
+
+---
+
+## 11. Open Questions
+
 - [ ] Does he want a Weddings/Events section anywhere, or is the inquiry form sufficient?
-- [ ] What are his delivery boundaries (Seattle only? Eastside?)
-- [ ] What are his current hours?
-- [ ] Does he have existing photos ready, or do we start with a minimal gallery and add over time?
+- [ ] What are his delivery boundaries (Seattle only? Eastside?)?
 - [ ] Which font from the brand board is licensed, if any?
+
+**Resolved:**
+- About page: photo of Florentino only (no shop interior)
+- Existing photos: ready to use
+- Hours: confirmed above
