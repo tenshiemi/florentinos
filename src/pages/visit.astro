@@ -44,7 +44,7 @@ const mapsUrl = visitInfo?.googleMapsUrl ?? `https://www.google.com/maps/search/
             <tbody>
               {hours.map(({ day, hours: h }) => (
                 <tr class={h === 'Closed' ? 'closed' : ''}>
-                  <td class="hours-day" scope="row">{day}</td>
+                  <th class="hours-day" scope="row">{day}</th>
                   <td class="hours-time">{h}</td>
                 </tr>
               ))}
