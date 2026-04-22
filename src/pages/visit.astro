@@ -33,12 +33,18 @@ const mapsUrl = visitInfo?.googleMapsUrl ?? `https://www.google.com/maps/search/
       <div class="visit-layout">
         <!-- Hours + Address -->
         <div class="visit-info" data-animate="fade-up">
-          <h2>Hours</h2>
-          <table class="hours-table">
+          <h2 id="hours-heading">Hours</h2>
+          <table class="hours-table" aria-labelledby="hours-heading">
+            <thead class="visually-hidden">
+              <tr>
+                <th scope="col">Day</th>
+                <th scope="col">Hours</th>
+              </tr>
+            </thead>
             <tbody>
               {hours.map(({ day, hours: h }) => (
                 <tr class={h === 'Closed' ? 'closed' : ''}>
-                  <td class="hours-day">{day}</td>
+                  <td class="hours-day" scope="row">{day}</td>
                   <td class="hours-time">{h}</td>
                 </tr>
               ))}
