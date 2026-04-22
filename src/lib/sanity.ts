@@ -48,16 +48,16 @@ export interface SiteSettings {
 
 export async function getGalleryImages(): Promise<GalleryImage[]> {
   if (!_hasCredentials) return [];
-  return sanityClient.fetch(
+  return (await sanityClient.fetch<GalleryImage[] | null>(
     `*[_type == "galleryImage"] | order(displayOrder asc) { _id, image, caption, displayOrder }`
-  ).catch(() => []);
+  ).catch(() => null)) ?? [];
 }
 
 export async function getFeaturedImages(): Promise<GalleryImage[]> {
   if (!_hasCredentials) return [];
-  return sanityClient.fetch(
+  return (await sanityClient.fetch<GalleryImage[] | null>(
     `*[_type == "homepageFeatured"][0].images[]-> { _id, image, caption, displayOrder }`
-  ).catch(() => []);
+  ).catch(() => null)) ?? [];
 }
 
 export async function getAbout(): Promise<AboutContent | null> {
