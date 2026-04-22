@@ -1,0 +1,142 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getVisitInfo } from '../lib/sanity';
+
+const visitInfo = await getVisitInfo().catch(() => null);
+
+const fallbackHours = [
+  { day: 'Monday', hours: '10 AM – 3 PM' },
+  { day: 'Tuesday', hours: '10 AM – 3 PM' },
+  { day: 'Wednesday', hours: '10 AM – 3 PM' },
+  { day: 'Thursday', hours: '10 AM – 4 PM' },
+  { day: 'Friday', hours: '10 AM – 4 PM' },
+  { day: 'Saturday', hours: '10 AM – 4 PM' },
+  { day: 'Sunday', hours: 'Closed' },
+];
+
+const hours = visitInfo?.hours?.length ? visitInfo.hours : fallbackHours;
+const address = visitInfo?.address ?? 'Madison Valley, Seattle, WA';
+const mapsUrl = visitInfo?.googleMapsUrl ?? `https://www.google.com/maps/search/${encodeURIComponent(address)}`;
+---
+<Layout
+  title="Visit — Florentino's Fine Flowers"
+  description="Find Florentino's Fine Flowers in Madison Valley, Seattle. Hours, directions, and the gift shop."
+>
+  <section class="visit-page">
+    <div class="section-inner">
+
+      <div class="visit-header" data-animate="fade-up">
+        <p class="page-eyebrow">Find Us</p>
+        <h1>Visit the Shop</h1>
+      </div>
+
+      <div class="visit-layout">
+        <!-- Hours + Address -->
+        <div class="visit-info" data-animate="fade-up">
+          <h2>Hours</h2>
+          <table class="hours-table">
+            <tbody>
+              {hours.map(({ day, hours: h }) => (
+                <tr class={h === 'Closed' ? 'closed' : ''}>
+                  <td class="hours-day">{day}</td>
+                  <td class="hours-time">{h}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          <div class="address-block">
+            <h2>Location</h2>
+            <p>{address}</p>
+            <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="btn-outline">
+              Get Directions
+            </a>
+          </div>
+
+          <div class="contact-block">
+            <h2>Get in Touch</h2>
+            <p>
+              <a href="/order">Order a custom arrangement →</a>
+            </p>
+            <p>
+              <a href="/subscribe">Sign up for a subscription →</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Gift shop teaser -->
+        <div class="gift-shop" data-animate="fade-up">
+          <h2>More Than Flowers</h2>
+          <p class="gift-body">
+            Step inside and you'll find more than arrangements. Florentino's is also home
+            to a thoughtfully curated gift shop — candles, home goods, and one-of-a-kind
+            finds you won't come across anywhere else in the neighborhood.
+          </p>
+          <p class="gift-body">
+            Some things are worth discovering in person. Come visit us.
+          </p>
+
+          <!-- Map embed -->
+          <div class="map-wrap">
+            <iframe
+              title="Florentino's Fine Flowers location"
+              src={`https://maps.google.com/maps?q=${encodeURIComponent(address)}&output=embed`}
+              width="100%"
+              height="300"
+              style="border:0;border-radius:4px;filter:invert(90%) hue-rotate(180deg);"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .visit-page {
+    padding: calc(var(--space-section) + 80px) var(--space-content) var(--space-section);
+  }
+  .visit-header { margin-bottom: 3rem; }
+  .page-eyebrow {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--color-gold); opacity: 0.7; margin-bottom: 0.75rem;
+  }
+  .visit-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: start;
+  }
+  @media (max-width: 768px) {
+    .visit-layout { grid-template-columns: 1fr; }
+  }
+
+  /* Hours table */
+  .hours-table { width: 100%; border-collapse: collapse; margin-bottom: 3rem; }
+  .hours-table tr { border-bottom: 1px solid rgba(255,225,132,0.08); }
+  .hours-day, .hours-time {
+    padding: 0.6rem 0;
+    font-size: 14px;
+    color: #b0b0c8;
+  }
+  .hours-day { font-weight: 500; padding-right: 2rem; }
+  .hours-time { text-align: right; }
+  .hours-table tr.closed .hours-day,
+  .hours-table tr.closed .hours-time { color: #555; }
+
+  /* Address */
+  .address-block { margin-bottom: 3rem; }
+  .address-block h2, .contact-block h2, .gift-shop h2 {
+    font-size: 1.1rem; margin-bottom: 0.75rem; color: var(--color-gold);
+  }
+  .address-block p { color: #b0b0c8; margin-bottom: 1rem; }
+  .contact-block a { font-size: 14px; display: block; margin-bottom: 0.5rem; }
+
+  /* Gift shop */
+  .gift-body { color: #b0b0c8; line-height: 1.9; margin-bottom: 1rem; font-size: 1.05rem; }
+  .map-wrap { margin-top: 2rem; }
+</style>
