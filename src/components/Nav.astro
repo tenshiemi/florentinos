@@ -63,6 +63,11 @@ const links = [
     transition: color var(--transition-base);
   }
   .nav-links a:hover { color: var(--color-gold); }
+  .nav-links a:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+    color: var(--color-gold);
+  }
   .nav-toggle {
     display: none;
     flex-direction: column;
@@ -101,17 +106,58 @@ const links = [
 </style>
 
 <script>
-  const nav = document.getElementById('main-nav')!;
-  const toggle = document.querySelector('.nav-toggle') as HTMLButtonElement;
-  const links = document.getElementById('nav-links')!;
+  const nav = document.getElementById('main-nav');
+  const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+  const linksEl = document.getElementById('nav-links');
 
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('nav--scrolled', window.scrollY > 80);
-  }, { passive: true });
+  if (nav) {
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('nav--scrolled', window.scrollY > 80);
+    }, { passive: true });
+  }
 
-  toggle.addEventListener('click', () => {
-    const expanded = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!expanded));
-    links.classList.toggle('nav-links--open');
+  function openDrawer() {
+    if (!toggle || !linksEl) return;
+    toggle.setAttribute('aria-expanded', 'true');
+    linksEl.classList.add('nav-links--open');
+    document.body.style.overflow = 'hidden';
+    // Move focus into drawer
+    const firstLink = linksEl.querySelector<HTMLElement>('a');
+    firstLink?.focus();
+  }
+
+  function closeDrawer() {
+    if (!toggle || !linksEl) return;
+    toggle.setAttribute('aria-expanded', 'false');
+    linksEl.classList.remove('nav-links--open');
+    document.body.style.overflow = '';
+    toggle.focus();
+  }
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    isOpen ? closeDrawer() : openDrawer();
+  });
+
+  // Escape key closes drawer
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+      closeDrawer();
+    }
+  });
+
+  // Focus trap inside drawer
+  linksEl?.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab' || !linksEl.classList.contains('nav-links--open')) return;
+    const focusable = linksEl.querySelectorAll<HTMLElement>('a');
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
   });
 </script>
