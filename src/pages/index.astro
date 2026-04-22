@@ -1,10 +1,208 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getFeaturedImages, urlFor } from '../lib/sanity';
+
+const featured = await getFeaturedImages().catch(() => []);
 ---
 <Layout>
-  <section class="section" style="background: var(--color-bg);">
+  <!-- Section 1: Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content" data-animate="fade-up">
+      <p class="hero-eyebrow">Madison Valley · Seattle</p>
+      <h1 class="hero-title">Florentino's<br />Fine Flowers</h1>
+      <p class="hero-tagline">A place where life and style coalesce,<br />and simple moments become fond memories.</p>
+      <a href="/order" class="btn-primary">Order an Arrangement</a>
+    </div>
+    <div class="hero-scroll-hint" aria-hidden="true">↓</div>
+  </section>
+
+  <!-- Section 2: Gallery Preview -->
+  <section class="section section--navy">
     <div class="section-inner">
-      <h1 data-animate="fade-up">Florentino's Fine Flowers</h1>
+      <h2 data-animate="fade-up">Our Work</h2>
+      <div data-animate="stagger" class="featured-grid">
+        {featured.slice(0, 4).map((img) => (
+          <div class="featured-item">
+            <img
+              src={urlFor(img.image).width(600).height(750).fit('crop').auto('format').url()}
+              alt={img.caption ?? 'Florentino arrangement'}
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+      <div style="text-align:center;margin-top:2.5rem;" data-animate="fade-up">
+        <a href="/gallery" class="btn-outline">View Full Gallery</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Order Teaser -->
+  <section class="section">
+    <div class="section-inner teaser-layout" data-animate="fade-up">
+      <div>
+        <h2>Every arrangement,<br />made for you.</h2>
+        <p class="teaser-body">
+          Tell us the feeling, the occasion, the budget — we take it from there.
+          No catalogs, no compromises. Just flowers, thoughtfully designed.
+        </p>
+        <a href="/order" class="btn-primary">Start Your Order</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Subscribe Teaser -->
+  <section class="section section--blue">
+    <div class="section-inner teaser-layout teaser-layout--right" data-animate="fade-up">
+      <div>
+        <h2>Fresh flowers,<br />on your schedule.</h2>
+        <p class="teaser-body">
+          Weekly, biweekly, or monthly — a fresh arrangement delivered or ready for pickup.
+          Tell us your preferences, we'll handle the rest.
+        </p>
+        <a href="/subscribe" class="btn-primary">See Subscription Options</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: About Teaser -->
+  <section class="section">
+    <div class="section-inner teaser-layout" data-animate="fade-up">
+      <div>
+        <p class="section-eyebrow">About</p>
+        <h2>Rooted in Madison Valley.</h2>
+        <p class="teaser-body">
+          Florentino's has been part of the neighborhood for years — a neighborhood shop
+          with a passion for flowers, a gallery of unique gifts, and a commitment to craft.
+        </p>
+        <a href="/about" class="btn-outline">Our Story</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: Visit -->
+  <section class="section section--navy">
+    <div class="section-inner teaser-layout teaser-layout--right" data-animate="fade-up">
+      <div>
+        <p class="section-eyebrow">Visit the Shop</p>
+        <h2>Come see what<br />else we have.</h2>
+        <p class="teaser-body">
+          The flowers are just the beginning. Stop by and discover the gift shop —
+          candles, home goods, and one-of-a-kind finds. Madison Valley, Seattle.
+        </p>
+        <div class="visit-hours">
+          <p>Mon–Wed &amp; Fri 10 AM – 3 PM &nbsp;|&nbsp; Thu–Sat 10 AM – 4 PM &nbsp;|&nbsp; Sun Closed</p>
+        </div>
+        <a href="/visit" class="btn-outline">Hours &amp; Directions</a>
+      </div>
     </div>
   </section>
 </Layout>
+
+<style>
+  /* Hero */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 60% 50%, var(--color-navy) 0%, var(--color-bg) 65%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem var(--space-content);
+    max-width: 700px;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 1.25rem;
+    opacity: 0.8;
+  }
+  .hero-title {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 700;
+    color: var(--color-gold);
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+  }
+  .hero-tagline {
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    color: #b0b0c8;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+  }
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--color-gold);
+    opacity: 0.4;
+    font-size: 1.25rem;
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* Featured grid */
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 2rem;
+  }
+  @media (max-width: 768px) {
+    .featured-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .featured-item img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    filter: brightness(0.9);
+    transition: filter var(--transition-slow);
+  }
+  .featured-item:hover img { filter: brightness(1.05); }
+
+  /* Teasers */
+  .teaser-layout {
+    max-width: 600px;
+  }
+  .teaser-layout--right {
+    margin-left: auto;
+    text-align: right;
+  }
+  .section-eyebrow {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    opacity: 0.7;
+    margin-bottom: 1rem;
+  }
+  .teaser-body {
+    color: #b0b0c8;
+    line-height: 1.9;
+    margin: 1.25rem 0 2rem;
+    font-size: 1.05rem;
+  }
+  .visit-hours {
+    font-size: 12px;
+    color: #888;
+    letter-spacing: 0.5px;
+    margin-bottom: 1.5rem;
+  }
+</style>
