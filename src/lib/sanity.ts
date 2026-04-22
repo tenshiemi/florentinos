@@ -3,8 +3,11 @@ import imageUrlBuilder from '@sanity/image-url';
 import type { SanityImageSource } from '@sanity/image-url';
 import type { PortableTextBlock } from '@portabletext/types';
 
+const _projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID || 'placeholder';
+const _hasCredentials = Boolean(import.meta.env.PUBLIC_SANITY_PROJECT_ID);
+
 export const sanityClient = createClient({
-  projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID,
+  projectId: _projectId,
   dataset: import.meta.env.PUBLIC_SANITY_DATASET ?? 'production',
   useCdn: false,
   apiVersion: '2026-04-21',
@@ -44,27 +47,32 @@ export interface SiteSettings {
 }
 
 export async function getGalleryImages(): Promise<GalleryImage[]> {
+  if (!_hasCredentials) return [];
   return sanityClient.fetch(
     `*[_type == "galleryImage"] | order(displayOrder asc) { _id, image, caption, displayOrder }`
-  );
+  ).catch(() => []);
 }
 
 export async function getFeaturedImages(): Promise<GalleryImage[]> {
+  if (!_hasCredentials) return [];
   return sanityClient.fetch(
     `*[_type == "homepageFeatured"][0].images[]-> { _id, image, caption, displayOrder }`
-  );
+  ).catch(() => []);
 }
 
 export async function getAbout(): Promise<AboutContent | null> {
-  return sanityClient.fetch(`*[_type == "about"][0] { photo, bio }`);
+  if (!_hasCredentials) return null;
+  return sanityClient.fetch(`*[_type == "about"][0] { photo, bio }`).catch(() => null);
 }
 
 export async function getVisitInfo(): Promise<VisitContent | null> {
-  return sanityClient.fetch(`*[_type == "visitInfo"][0] { address, googleMapsUrl, hours }`);
+  if (!_hasCredentials) return null;
+  return sanityClient.fetch(`*[_type == "visitInfo"][0] { address, googleMapsUrl, hours }`).catch(() => null);
 }
 
 export async function getSiteSettings(): Promise<SiteSettings | null> {
+  if (!_hasCredentials) return null;
   return sanityClient.fetch(
     `*[_type == "siteSettings"][0] { businessName, phone, email, address, socialLinks }`
-  );
+  ).catch(() => null);
 }
