@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+import { getGalleryImages } from '../lib/sanity';
+
+const images = await getGalleryImages().catch(() => []);
+---
+<Layout title="Gallery — Florentino's Fine Flowers" description="Browse our portfolio of custom floral arrangements.">
+  <div class="page-hero" data-animate="fade-up">
+    <p class="page-eyebrow">Portfolio</p>
+    <h1>Our Work</h1>
+  </div>
+  <section class="gallery-page">
+    <div class="section-inner">
+      {images.length > 0
+        ? <GalleryGrid images={images} />
+        : <p class="empty-state">Gallery coming soon.</p>
+      }
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-hero {
+    padding: calc(var(--space-section) + 80px) var(--space-content) var(--space-section);
+    text-align: center;
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+  .page-eyebrow {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    opacity: 0.7;
+    margin-bottom: 0.75rem;
+  }
+  .page-hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+  .gallery-page { padding: 0 var(--space-content) var(--space-section); }
+  .empty-state { color: #555; font-size: 14px; text-align: center; padding: 4rem 0; }
+</style>
