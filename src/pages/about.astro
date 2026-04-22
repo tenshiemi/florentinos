@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getAbout, urlFor } from '../lib/sanity';
+import { PortableText } from 'astro-portabletext';
+
+const about = await getAbout().catch(() => null);
+---
+<Layout
+  title="About — Florentino's Fine Flowers"
+  description="The story behind Florentino's Fine Flowers in Madison Valley, Seattle."
+>
+  <section class="about-page">
+    <div class="section-inner">
+      {about ? (
+        <div class="about-layout" data-animate="fade-up">
+          <div class="about-photo">
+            <img
+              src={urlFor(about.photo).width(700).height(900).fit('crop').auto('format').url()}
+              alt="Florentino"
+            />
+          </div>
+          <div class="about-text">
+            <p class="page-eyebrow">About</p>
+            <h1>Florentino's<br />Fine Flowers</h1>
+            {about.bio && <div class="bio-body"><PortableText value={about.bio} /></div>}
+            <div class="about-cta">
+              <a href="/order" class="btn-primary">Order an Arrangement</a>
+              <a href="/visit" class="btn-outline">Visit the Shop</a>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div class="about-placeholder" data-animate="fade-up">
+          <p class="page-eyebrow">About</p>
+          <h1>Florentino's Fine Flowers</h1>
+          <p class="bio-body">Coming soon.</p>
+        </div>
+      )}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .about-page {
+    padding: calc(var(--space-section) + 80px) var(--space-content) var(--space-section);
+  }
+  .about-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: start;
+  }
+  @media (max-width: 768px) {
+    .about-layout { grid-template-columns: 1fr; }
+  }
+  .about-photo img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    filter: brightness(0.9);
+  }
+  .page-eyebrow {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--color-gold); opacity: 0.7; margin-bottom: 0.75rem;
+  }
+  .about-text h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1.5rem; }
+  .bio-body { color: #b0b0c8; line-height: 1.9; font-size: 1.05rem; }
+  .bio-body p { margin-bottom: 1rem; }
+  .about-cta { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+  .about-placeholder { text-align: center; max-width: 600px; margin: 0 auto; padding: 4rem 0; }
+</style>
