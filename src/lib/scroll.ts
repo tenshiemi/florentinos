@@ -2,10 +2,14 @@ import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-export function initScroll(): Lenis {
-  const lenis = new Lenis();
+gsap.registerPlugin(ScrollTrigger);
 
-  gsap.registerPlugin(ScrollTrigger);
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+export function initScroll(): Lenis | null {
+  if (reducedMotion) return null;
+
+  const lenis = new Lenis({ lerp: 0.08 });
 
   lenis.on('scroll', () => ScrollTrigger.update());
 
@@ -19,7 +23,8 @@ export function initScroll(): Lenis {
 }
 
 export function initAnimations(): void {
-  // Fade up: any element with data-animate="fade-up"
+  if (reducedMotion) return;
+
   gsap.utils.toArray<HTMLElement>('[data-animate="fade-up"]').forEach((el) => {
     gsap.from(el, {
       scrollTrigger: {
@@ -34,9 +39,8 @@ export function initAnimations(): void {
     });
   });
 
-  // Stagger children: parent with data-animate="stagger"
   gsap.utils.toArray<HTMLElement>('[data-animate="stagger"]').forEach((parent) => {
-    gsap.from(parent.children, {
+    gsap.from(Array.from(parent.children), {
       scrollTrigger: {
         trigger: parent,
         start: 'top 80%',
