@@ -16,6 +16,7 @@ export const siteSettings = defineType({
       fields: [
         { name: 'instagram', type: 'url', title: 'Instagram URL' },
         { name: 'facebook', type: 'url', title: 'Facebook URL' },
+        { name: 'yelp', type: 'url', title: 'Yelp URL' },
       ],
     }),
     defineField({

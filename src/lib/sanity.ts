@@ -43,7 +43,7 @@ export interface SiteSettings {
   phone?: string;
   email?: string;
   address?: string;
-  socialLinks?: { instagram?: string; facebook?: string };
+  socialLinks?: { instagram?: string; facebook?: string; yelp?: string };
   glsImage?: SanityImageSource;
 }
 
