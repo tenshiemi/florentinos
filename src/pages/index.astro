@@ -12,6 +12,7 @@ const featured = await getFeaturedImages().catch(() => []);
       <p class="hero-eyebrow">Madison Valley · Seattle</p>
       <h1 class="hero-title">Florentino's<br />Fine Flowers</h1>
       <p class="hero-tagline">A place where life and style coalesce,<br />and simple moments become fond memories.</p>
+      <p class="hero-delivery">Daily delivery to Seattle · Bellevue · Redmond · Des Moines</p>
       <a href="/order" class="btn-primary">Order an Arrangement</a>
     </div>
     <div class="hero-scroll-hint" aria-hidden="true">↓</div>
@@ -52,16 +53,19 @@ const featured = await getFeaturedImages().catch(() => []);
     </div>
   </section>
 
-  <!-- Section 4: Subscribe Teaser -->
+  <!-- Section 4: Gilded Lily Society -->
   <section class="section section--blue">
-    <div class="section-inner teaser-layout teaser-layout--right" data-animate="fade-up">
+    <div class="section-inner gls-layout" data-animate="fade-up">
       <div>
-        <h2>Fresh flowers,<br />on your schedule.</h2>
+        <p class="section-eyebrow">Florentino's Presents</p>
+        <h2 class="gls-title">The Gilded Lily<br />Society</h2>
         <p class="teaser-body">
-          Weekly, biweekly, or monthly — a fresh arrangement delivered or ready for pickup.
-          Tell us your preferences, we'll handle the rest.
+          An exclusive annual membership — one bespoke arrangement each month,
+          valued at $100, for twelve consecutive months.
         </p>
-        <a href="/subscribe" class="btn-primary">See Subscription Options</a>
+        <p class="gls-price">$1,100 / year</p>
+        <p class="gls-note">Delivery available for an additional fee.</p>
+        <a href="/subscribe" class="btn-primary">Join the Society</a>
       </div>
     </div>
   </section>
@@ -140,8 +144,16 @@ const featured = await getFeaturedImages().catch(() => []);
   .hero-tagline {
     font-size: clamp(0.9rem, 2vw, 1.1rem);
     color: #b0b0c8;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1rem;
     line-height: 1.8;
+  }
+  .hero-delivery {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    opacity: 0.5;
+    margin-bottom: 2rem;
   }
   .hero-scroll-hint {
     position: absolute;
@@ -204,5 +216,23 @@ const featured = await getFeaturedImages().catch(() => []);
     color: #888;
     letter-spacing: 0.5px;
     margin-bottom: 1.5rem;
+  }
+  .gls-layout { max-width: 600px; margin-left: auto; text-align: right; }
+  .gls-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-style: italic;
+    margin-bottom: 1.25rem;
+  }
+  .gls-price {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--color-gold);
+    margin-bottom: 0.5rem;
+  }
+  .gls-note {
+    font-size: 12px;
+    color: #888;
+    letter-spacing: 0.5px;
+    margin-bottom: 2rem;
   }
 </style>

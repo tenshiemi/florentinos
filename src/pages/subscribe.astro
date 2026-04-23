@@ -7,15 +7,28 @@ const budgetOptions = [
 ];
 ---
 <Layout
-  title="Subscribe — Florentino's Fine Flowers"
-  description="Sign up for regular flower deliveries or pickups, on your schedule."
+  title="The Gilded Lily Society — Florentino's Fine Flowers"
+  description="Join the Gilded Lily Society — an exclusive annual membership featuring one bespoke floral arrangement each month."
 >
   <div class="page-hero" data-animate="fade-up">
-    <p class="page-eyebrow">Flower Subscriptions</p>
-    <h1>Fresh Flowers,<br />On Your Schedule</h1>
+    <p class="page-eyebrow">Florentino's Presents</p>
+    <h1>The Gilded Lily<br />Society</h1>
     <p class="page-intro">
-      Fresh arrangements delivered or ready for pickup — weekly, biweekly, or monthly.
-      We'll reach out to confirm the details.
+      An exclusive annual membership — one bespoke arrangement each month,
+      valued at $100, for twelve consecutive months.
+    </p>
+    <div class="gls-membership-card">
+      <p class="gls-card-price">$1,100 <span>/ year</span></p>
+      <ul class="gls-card-perks">
+        <li>One $100 floral arrangement monthly</li>
+        <li>Twelve consecutive months</li>
+        <li>Pickup or delivery (delivery fee applies)</li>
+        <li>Arrangements tailored to your style</li>
+      </ul>
+    </div>
+    <p class="page-intro" style="margin-top:2rem;">
+      Not ready for an annual membership? We also offer flexible
+      weekly, biweekly, and monthly subscriptions — just let us know below.
     </p>
   </div>
 
@@ -141,6 +154,32 @@ const budgetOptions = [
     color: #b0b0c8; font-style: italic; margin-top: 1rem;
     font-family: var(--font-display); font-size: 1.1rem;
   }
+  .gls-membership-card {
+    border: 1px solid rgba(255,225,132,0.25);
+    padding: 2rem;
+    margin: 2rem auto 0;
+    max-width: 400px;
+    text-align: center;
+  }
+  .gls-card-price {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--color-gold);
+    margin-bottom: 1.25rem;
+  }
+  .gls-card-price span { font-size: 1rem; opacity: 0.7; }
+  .gls-card-perks {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .gls-card-perks li {
+    font-size: 13px;
+    color: #b0b0c8;
+    letter-spacing: 0.5px;
+  }
+  .gls-card-perks li::before { content: '— '; color: var(--color-gold); opacity: 0.5; }
   .form-page { padding: 0 var(--space-content) var(--space-section); }
   .form-wrap { max-width: 640px; margin: 0 auto; }
   .inquiry-form { display: flex; flex-direction: column; gap: 20px; }
