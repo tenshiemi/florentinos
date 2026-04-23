@@ -44,6 +44,7 @@ export interface SiteSettings {
   email?: string;
   address?: string;
   socialLinks?: { instagram?: string; facebook?: string };
+  glsImage?: SanityImageSource;
 }
 
 export async function getGalleryImages(): Promise<GalleryImage[]> {
@@ -73,6 +74,6 @@ export async function getVisitInfo(): Promise<VisitContent | null> {
 export async function getSiteSettings(): Promise<SiteSettings | null> {
   if (!_hasCredentials) return null;
   return sanityClient.fetch(
-    `*[_type == "siteSettings"][0] { businessName, phone, email, address, socialLinks }`
+    `*[_type == "siteSettings"][0] { businessName, phone, email, address, socialLinks, glsImage }`
   ).catch(() => null);
 }

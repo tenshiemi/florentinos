@@ -1,8 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getFeaturedImages, urlFor } from '../lib/sanity';
+import { getFeaturedImages, getSiteSettings, urlFor } from '../lib/sanity';
 
-const featured = await getFeaturedImages().catch(() => []);
+const [featured, settings] = await Promise.all([
+  getFeaturedImages().catch(() => []),
+  getSiteSettings().catch(() => null),
+]);
+const glsImage = settings?.glsImage;
 ---
 <Layout>
   <!-- Section 1: Hero -->
@@ -55,17 +59,28 @@ const featured = await getFeaturedImages().catch(() => []);
 
   <!-- Section 4: Gilded Lily Society -->
   <section class="section section--blue">
-    <div class="section-inner gls-layout" data-animate="fade-up">
-      <div>
-        <p class="section-eyebrow">Florentino's Presents</p>
-        <h2 class="gls-title">The Gilded Lily<br />Society</h2>
-        <p class="teaser-body">
-          An exclusive annual membership — one bespoke arrangement each month,
-          valued at $100, for twelve consecutive months.
-        </p>
-        <p class="gls-price">$1,100 / year</p>
-        <p class="gls-note">Delivery available for an additional fee.</p>
-        <a href="/subscribe" class="btn-primary">Join the Society</a>
+    <div class="section-inner">
+      <div class={`gls-layout${glsImage ? ' gls-layout--with-image' : ''}`} data-animate="fade-up">
+        {glsImage && (
+          <div class="gls-image">
+            <img
+              src={urlFor(glsImage).width(600).height(800).fit('crop').auto('format').url()}
+              alt="The Gilded Lily Society"
+              loading="lazy"
+            />
+          </div>
+        )}
+        <div class="gls-text">
+          <p class="section-eyebrow">Florentino's Presents</p>
+          <h2 class="gls-title">The Gilded Lily<br />Society</h2>
+          <p class="teaser-body">
+            An exclusive annual membership — one bespoke arrangement each month,
+            valued at $100, for twelve consecutive months.
+          </p>
+          <p class="gls-price">$1,100 / year</p>
+          <p class="gls-note">Delivery available for an additional fee.</p>
+          <a href="/subscribe" class="btn-primary">Join the Society</a>
+        </div>
       </div>
     </div>
   </section>
@@ -217,7 +232,35 @@ const featured = await getFeaturedImages().catch(() => []);
     letter-spacing: 0.5px;
     margin-bottom: 1.5rem;
   }
-  .gls-layout { max-width: 600px; margin-left: auto; text-align: right; }
+  /* GLS section — single-column default, two-column when image is set */
+  .gls-layout {
+    max-width: 600px;
+    margin-left: auto;
+    text-align: right;
+  }
+  .gls-layout--with-image {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+    text-align: right;
+  }
+  @media (max-width: 768px) {
+    .gls-layout--with-image {
+      grid-template-columns: 1fr;
+      max-width: 500px;
+    }
+    .gls-image { order: -1; }
+  }
+  .gls-image img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    filter: brightness(0.88);
+  }
   .gls-title {
     font-size: clamp(2rem, 5vw, 3.5rem);
     font-style: italic;

@@ -18,5 +18,12 @@ export const siteSettings = defineType({
         { name: 'facebook', type: 'url', title: 'Facebook URL' },
       ],
     }),
+    defineField({
+      name: 'glsImage',
+      title: 'Gilded Lily Society Image',
+      type: 'image',
+      description: 'Photo shown beside the Gilded Lily Society section on the homepage.',
+      options: { hotspot: true },
+    }),
   ],
 });
