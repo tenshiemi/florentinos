@@ -16,6 +16,8 @@ export const visitInfo = defineType({
       title: 'Google Maps Embed URL',
       type: 'url',
     }),
+    defineField({ name: 'pageTitle', type: 'string', title: 'Page Title', description: 'Browser tab title, e.g. "Visit — Florentino\'s Fine Flowers"' }),
+    defineField({ name: 'pageDescription', type: 'text', rows: 2, title: 'Meta Description' }),
     defineField({
       name: 'hours',
       title: 'Hours',

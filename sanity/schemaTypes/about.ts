@@ -18,5 +18,7 @@ export const about = defineType({
       type: 'array',
       of: [{ type: 'block' }],
     }),
+    defineField({ name: 'pageTitle', type: 'string', title: 'Page Title', description: 'Browser tab title, e.g. "About — Florentino\'s Fine Flowers"' }),
+    defineField({ name: 'pageDescription', type: 'text', rows: 2, title: 'Meta Description' }),
   ],
 });

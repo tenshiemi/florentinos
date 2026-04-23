@@ -30,21 +30,33 @@ export interface GalleryImage {
 export interface AboutContent {
   photo: SanityImageSource;
   bio: PortableTextBlock[];
+  pageTitle?: string;
+  pageDescription?: string;
 }
 
 export interface VisitContent {
   address: string;
   googleMapsUrl?: string;
   hours: Array<{ day: string; hours: string }>;
+  pageTitle?: string;
+  pageDescription?: string;
 }
+
+interface SeoFields { title?: string; description?: string; }
 
 export interface SiteSettings {
   businessName: string;
+  tagline?: string;
+  deliveryLine?: string;
   phone?: string;
   email?: string;
   address?: string;
   socialLinks?: { instagram?: string; facebook?: string; yelp?: string };
   glsImage?: SanityImageSource;
+  seoHome?: SeoFields;
+  seoGallery?: SeoFields;
+  seoOrder?: SeoFields;
+  seoSubscribe?: SeoFields;
 }
 
 export async function getGalleryImages(): Promise<GalleryImage[]> {
@@ -63,17 +75,17 @@ export async function getFeaturedImages(): Promise<GalleryImage[]> {
 
 export async function getAbout(): Promise<AboutContent | null> {
   if (!_hasCredentials) return null;
-  return sanityClient.fetch(`*[_type == "about"][0] { photo, bio }`).catch(() => null);
+  return sanityClient.fetch(`*[_type == "about"][0] { photo, bio, pageTitle, pageDescription }`).catch(() => null);
 }
 
 export async function getVisitInfo(): Promise<VisitContent | null> {
   if (!_hasCredentials) return null;
-  return sanityClient.fetch(`*[_type == "visitInfo"][0] { address, googleMapsUrl, hours }`).catch(() => null);
+  return sanityClient.fetch(`*[_type == "visitInfo"][0] { address, googleMapsUrl, hours, pageTitle, pageDescription }`).catch(() => null);
 }
 
 export async function getSiteSettings(): Promise<SiteSettings | null> {
   if (!_hasCredentials) return null;
   return sanityClient.fetch(
-    `*[_type == "siteSettings"][0] { businessName, phone, email, address, socialLinks, glsImage }`
+    `*[_type == "siteSettings"][0] { businessName, tagline, deliveryLine, phone, email, address, socialLinks, glsImage, seoHome, seoGallery, seoOrder, seoSubscribe }`
   ).catch(() => null);
 }

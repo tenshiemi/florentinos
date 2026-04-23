@@ -3,12 +3,11 @@ import Layout from '../layouts/Layout.astro';
 import { getAbout, urlFor } from '../lib/sanity';
 import { PortableText } from 'astro-portabletext';
 
-const about = await getAbout().catch(() => null);
+const about     = await getAbout().catch(() => null);
+const pageTitle = about?.pageTitle       ?? "About — Florentino's Fine Flowers";
+const pageDesc  = about?.pageDescription ?? "The story behind Florentino's Fine Flowers in Madison Valley, Seattle.";
 ---
-<Layout
-  title="About — Florentino's Fine Flowers"
-  description="The story behind Florentino's Fine Flowers in Madison Valley, Seattle."
->
+<Layout title={pageTitle} description={pageDesc}>
   <section class="about-page">
     <div class="section-inner">
       {about ? (

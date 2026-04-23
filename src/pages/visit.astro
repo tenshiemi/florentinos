@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import { getVisitInfo } from '../lib/sanity';
 
 const visitInfo = await getVisitInfo().catch(() => null);
+const pageTitle = visitInfo?.pageTitle       ?? "Visit — Florentino's Fine Flowers";
+const pageDesc  = visitInfo?.pageDescription ?? "Find Florentino's Fine Flowers in Madison Valley, Seattle. Hours, directions, and the gift shop.";
 
 const fallbackHours = [
   { day: 'Monday', hours: '10 AM – 3 PM' },
@@ -18,10 +20,7 @@ const hours = visitInfo?.hours?.length ? visitInfo.hours : fallbackHours;
 const address = visitInfo?.address ?? 'Madison Valley, Seattle, WA';
 const mapsUrl = visitInfo?.googleMapsUrl ?? `https://www.google.com/maps/search/${encodeURIComponent(address)}`;
 ---
-<Layout
-  title="Visit — Florentino's Fine Flowers"
-  description="Find Florentino's Fine Flowers in Madison Valley, Seattle. Hours, directions, and the gift shop."
->
+<Layout title={pageTitle} description={pageDesc}>
   <section class="visit-page">
     <div class="section-inner">
 

@@ -1,11 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import GalleryGrid from '../components/GalleryGrid.astro';
-import { getGalleryImages } from '../lib/sanity';
+import { getGalleryImages, getSiteSettings } from '../lib/sanity';
 
-const images = await getGalleryImages().catch(() => []);
+const [images, settings] = await Promise.all([
+  getGalleryImages().catch(() => []),
+  getSiteSettings().catch(() => null),
+]);
+const pageTitle = settings?.seoGallery?.title       ?? "Gallery — Florentino's Fine Flowers";
+const pageDesc  = settings?.seoGallery?.description ?? 'Browse our portfolio of custom floral arrangements.';
 ---
-<Layout title="Gallery — Florentino's Fine Flowers" description="Browse our portfolio of custom floral arrangements.">
+<Layout title={pageTitle} description={pageDesc}>
   <div class="page-hero" data-animate="fade-up">
     <p class="page-eyebrow">Portfolio</p>
     <h1>Our Work</h1>

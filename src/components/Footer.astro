@@ -5,6 +5,7 @@ const year = new Date().getFullYear();
 const settings = await getSiteSettings().catch(() => null);
 
 const brandName = settings?.businessName ?? "Florentino's Fine Flowers";
+const tagline   = settings?.tagline      ?? 'Madison Valley · Seattle';
 const instagram = settings?.socialLinks?.instagram ?? 'https://www.instagram.com/florentinosseattle';
 const facebook  = settings?.socialLinks?.facebook  ?? 'https://www.facebook.com/florentinosseattle';
 const yelp      = settings?.socialLinks?.yelp      ?? 'https://www.yelp.com/biz/florentinos-fine-flowers-seattle';
@@ -12,7 +13,7 @@ const yelp      = settings?.socialLinks?.yelp      ?? 'https://www.yelp.com/biz/
 <footer class="footer">
   <div class="footer-inner">
     <p class="footer-brand">{brandName}</p>
-    <p class="footer-sub">Madison Valley · Seattle</p>
+    <p class="footer-sub">{tagline}</p>
     <nav class="footer-links" aria-label="Footer navigation">
       <a href="/gallery">Gallery</a>
       <a href="/order">Order</a>

@@ -6,9 +6,12 @@ const [featured, settings] = await Promise.all([
   getFeaturedImages().catch(() => []),
   getSiteSettings().catch(() => null),
 ]);
-const glsImage = settings?.glsImage;
+const glsImage     = settings?.glsImage;
+const deliveryLine = settings?.deliveryLine ?? 'Daily delivery to Seattle · Bellevue · Redmond · Des Moines';
+const pageTitle    = settings?.seoHome?.title       ?? "Florentino's Fine Flowers";
+const pageDesc     = settings?.seoHome?.description ?? 'Custom floral arrangements and flower subscriptions in Madison Valley, Seattle.';
 ---
-<Layout>
+<Layout title={pageTitle} description={pageDesc}>
   <!-- Section 1: Hero -->
   <section class="hero">
     <div class="hero-bg"></div>
@@ -16,7 +19,7 @@ const glsImage = settings?.glsImage;
       <p class="hero-eyebrow">Madison Valley · Seattle</p>
       <h1 class="hero-title">Florentino's<br />Fine Flowers</h1>
       <p class="hero-tagline">A place where life and style coalesce,<br />and simple moments become fond memories.</p>
-      <p class="hero-delivery">Daily delivery to Seattle · Bellevue · Redmond · Des Moines</p>
+      <p class="hero-delivery">{deliveryLine}</p>
       <a href="/order" class="btn-primary">Order an Arrangement</a>
     </div>
     <div class="hero-scroll-hint" aria-hidden="true">↓</div>

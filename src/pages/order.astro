@@ -1,15 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getSiteSettings } from '../lib/sanity';
+
+const settings  = await getSiteSettings().catch(() => null);
+const pageTitle = settings?.seoOrder?.title       ?? "Order — Florentino's Fine Flowers";
+const pageDesc  = settings?.seoOrder?.description ?? "Request a custom floral arrangement. Tell us the feeling — we'll handle the rest.";
 
 const budgetOptions = [
   '$75','$100','$125','$150','$175','$200',
   '$225','$250','$275','$300','$325','$350','$375','$400','$400+',
 ];
 ---
-<Layout
-  title="Order — Florentino's Fine Flowers"
-  description="Request a custom floral arrangement. Tell us the feeling — we'll handle the rest."
->
+<Layout title={pageTitle} description={pageDesc}>
   <div class="page-hero" data-animate="fade-up">
     <p class="page-eyebrow">Custom Arrangements</p>
     <h1>Order Flowers</h1>
