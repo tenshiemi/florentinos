@@ -12,6 +12,11 @@ const year = new Date().getFullYear();
       <a href="/about">About</a>
       <a href="/visit">Visit</a>
     </nav>
+    <nav class="footer-social" aria-label="Social media">
+      <a href="https://www.instagram.com/florentinosseattle" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="https://www.facebook.com/florentinosseattle" target="_blank" rel="noopener noreferrer">Facebook</a>
+      <a href="https://www.yelp.com/biz/florentinos-fine-flowers-seattle" target="_blank" rel="noopener noreferrer">Yelp</a>
+    </nav>
     <p class="footer-copy">&copy; {year} Florentino's Fine Flowers. All rights reserved.</p>
   </div>
 </footer>
@@ -34,5 +39,8 @@ const year = new Date().getFullYear();
   .footer-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem; }
   .footer-links a { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #aaa; }
   .footer-links a:hover { color: var(--color-gold); }
+  .footer-social { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .footer-social a { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #888; }
+  .footer-social a:hover { color: var(--color-gold); }
   .footer-copy { font-size: 11px; color: #555; }
 </style>

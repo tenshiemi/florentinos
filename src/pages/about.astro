@@ -21,7 +21,7 @@ const about = await getAbout().catch(() => null);
           </div>
           <div class="about-text">
             <p class="page-eyebrow">About</p>
-            <h1>Florentino's<br />Fine Flowers</h1>
+            <h1>Meet Tino</h1>
             {about.bio && <div class="bio-body"><PortableText value={about.bio} /></div>}
             <div class="about-cta">
               <a href="/order" class="btn-primary">Order an Arrangement</a>
@@ -32,7 +32,7 @@ const about = await getAbout().catch(() => null);
       ) : (
         <div class="about-placeholder" data-animate="fade-up">
           <p class="page-eyebrow">About</p>
-          <h1>Florentino's Fine Flowers</h1>
+          <h1>Meet Tino</h1>
           <p class="bio-body">Coming soon.</p>
         </div>
       )}
